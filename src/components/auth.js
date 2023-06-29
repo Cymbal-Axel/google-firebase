@@ -7,14 +7,19 @@ export const Auth = () => {
     const [password,setPassword] = useState("");
 
     const signIn = async () => {
-        await createUserWithEmailAndPassword(auth, email, password);
-    }
+        try {
+            await createUserWithEmailAndPassword(auth, email, password);
+        } catch(err) {
+            console.error(err);
+        }
+    };
 
     return(
         <div>
             <input placeholder="Email..." onChange={(e) => setEmail(e.target.value)}></input>
             <input placeholder="Password..." type="password" onChange={(e) => setPassword(e.target.value)}></input>
             <button onClick={signIn}>Sign in</button>
+            <button onClick={signInWithGoogle}>Sign In With Google</button>
         </div>
     )
 }
