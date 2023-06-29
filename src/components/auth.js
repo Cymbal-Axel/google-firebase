@@ -13,8 +13,8 @@ export const Auth = () => {
 
     return(
         <div>
-            <input placeholder="Email..."></input>
-            <input placeholder="Password..."></input>
+            <input placeholder="Email..." onChange={(e) => setEmail(e.target.value)}></input>
+            <input placeholder="Password..." onChange={(e) => setPassword(e.target.value)}></input>
             <button onClick={signIn}>Sign in</button>
         </div>
     )
