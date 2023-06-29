@@ -1,5 +1,5 @@
 import { auth } from '../config/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
 
 export const Auth = () => {
@@ -13,6 +13,14 @@ export const Auth = () => {
             console.error(err);
         }
     };
+
+    const signInWithGoogle = async() => {
+        try{
+            await signInWithPopup(auth, email, password);
+        } catch(err){
+            console.error(err);
+        }
+    }
 
     return(
         <div>
