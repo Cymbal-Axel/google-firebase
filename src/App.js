@@ -13,8 +13,12 @@ function App() {
     const getMovieList = async () => {
       try{
       const data = await getDocs(moviesCollectionRef);
-      console.log(data)
-      } catch(err) {
+      const filteredData = data.docs.map((doc)=>({
+        ...doc.data(), 
+        id: doc.id,
+      }))
+      setMovieList(filteredData)
+    } catch(err) {
         console.error(err);
       }
 
@@ -26,6 +30,14 @@ function App() {
   return (
     <div className="App">
       <Auth />
+      <div>
+      {movieList.map((movie)=> (
+          <div>
+            <h1>{movie.title}</h1>
+            <p>Date: {movie.releaseDate}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
