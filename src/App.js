@@ -31,9 +31,17 @@ function App() {
     <div className="App">
       <Auth />
       <div>
+        <input placeholder="movie title..."/>
+        <input placeholder="release date..." type="number"/>
+        <input type="checkbox"/>
+        <label>Received an Oscar</label>
+        <button>Submit Movie</button>
+      </div>
+
+      <div>
       {movieList.map((movie)=> (
           <div>
-            <h1>{movie.title}</h1>
+            <h1  style={{color: movie.receivedAnOscar ? "green" : "red"}}>{movie.title}</h1>
             <p>Date: {movie.releaseDate}</p>
           </div>
         ))}
