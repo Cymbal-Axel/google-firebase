@@ -6,6 +6,11 @@ import { getDocs, collection } from '@firebase/firestore';
 
 function App() {
   const [movieList, setMovieList] = useState([]);
+  const [newMovieTitle, setNewMovieTitle] = useState("");
+  const [newReleaseDate, setNewReleaseDate] = useState("");
+  const [isNewMovieOscar, setIsNewMovieOscar] = useState("");
+
+
 
   const moviesCollectionRef = collection(db, "movies")
 
