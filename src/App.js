@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Auth } from './components/auth';
 import { db } from './config/firebase';
-import { getDocs, collection, addDoc } from '@firebase/firestore';
+import { getDocs, collection, addDoc, deleteDoc, doc } from '@firebase/firestore';
 
 function App() {
   const [movieList, setMovieList] = useState([]);
@@ -14,20 +14,21 @@ function App() {
 
   const moviesCollectionRef = collection(db, "movies")
 
-  useEffect(()=>{
-    const getMovieList = async () => {
-      try{
-      const data = await getDocs(moviesCollectionRef);
-      const filteredData = data.docs.map((doc)=>({
-        ...doc.data(), 
-        id: doc.id,
-      }))
-      setMovieList(filteredData)
-    } catch(err) {
-        console.error(err);
-      }
-
+  const getMovieList = async () => {
+    try{
+    const data = await getDocs(moviesCollectionRef);
+    const filteredData = data.docs.map((doc)=>({
+      ...doc.data(), 
+      id: doc.id,
+    }))
+    setMovieList(filteredData)
+  } catch(err) {
+      console.error(err);
     }
+
+  }
+
+  useEffect(()=>{
     getMovieList()
   }, [])
 
@@ -38,11 +39,16 @@ function App() {
       releaseDate: newReleaseDate,
       receivedAnOscar: isNewMovieOscar
     });
+
+    getMovieList();
   } catch(err){
     console.error(err)
   }
   };
 
+  const deleteMovie = async () => {
+    await deleteDoc()
+  }
 
   return (
     <div className="App">
