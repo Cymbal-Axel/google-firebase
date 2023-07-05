@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Auth } from './components/auth';
 import { db } from './config/firebase';
-import { getDocs, collection } from '@firebase/firestore';
+import { getDocs, collection, addDoc } from '@firebase/firestore';
 
 function App() {
   const [movieList, setMovieList] = useState([]);
@@ -31,6 +31,18 @@ function App() {
     getMovieList()
   }, [])
 
+  const onSubmitMovie = async () => {
+    try{
+    await addDoc(moviesCollectionRef, {
+      title: newMovieTitle,
+      releaseDate: newReleaseDate,
+      receivedAnOscar: isNewMovieOscar
+    });
+  } catch(err){
+    console.error(err)
+  }
+  };
+
 
   return (
     <div className="App">
@@ -40,7 +52,7 @@ function App() {
         <input placeholder="release date..." type="number" onChange={(e) => setNewReleaseDate(Number(e.target.value))}/>
         <input type="checkbox" checked={isNewMovieOscar} onChange={(e) => setIsNewMovieOscar(e.target.checked)}/>
         <label>Received an Oscar</label>
-        <button>Submit Movie</button>
+        <button onClick={onSubmitMovie}>Submit Movie</button>
       </div>
 
       <div>
