@@ -46,8 +46,9 @@ function App() {
   }
   };
 
-  const deleteMovie = async () => {
-    await deleteDoc()
+  const deleteMovie = async (id) => {
+    const movieDoc = doc(db, "movies", id);
+    await deleteDoc(movieDoc)
   }
 
   return (
@@ -66,6 +67,7 @@ function App() {
           <div>
             <h1  style={{color: movie.receivedAnOscar ? "green" : "red"}}>{movie.title}</h1>
             <p>Date: {movie.releaseDate}</p>
+            <button onClick={() => deleteMovie(movie.id)}>Delete Movie</button>
           </div>
         ))}
       </div>
