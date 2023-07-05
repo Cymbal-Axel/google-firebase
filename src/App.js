@@ -38,7 +38,7 @@ function App() {
       <div>
         <input placeholder="movie title..." onChange={(e) => setNewMovieTitle(e.target.value)}/>
         <input placeholder="release date..." type="number" onChange={(e) => setNewReleaseDate(Number(e.target.value))}/>
-        <input type="checkbox" onChange={(e) => setIsNewMovieOscar(e.target.checked)}/>
+        <input type="checkbox" checked={isNewMovieOscar} onChange={(e) => setIsNewMovieOscar(e.target.checked)}/>
         <label>Received an Oscar</label>
         <button>Submit Movie</button>
       </div>
