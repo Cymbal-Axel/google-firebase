@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Auth } from './components/auth';
-import { db } from './config/firebase';
+import { db, auth } from './config/firebase';
 import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc } from '@firebase/firestore';
 
 function App() {
@@ -14,6 +14,8 @@ function App() {
 
 
   const moviesCollectionRef = collection(db, "movies")
+
+
 
   const getMovieList = async () => {
     try{
@@ -39,6 +41,7 @@ function App() {
       title: newMovieTitle,
       releaseDate: newReleaseDate,
       receivedAnOscar: isNewMovieOscar,
+      userId: auth?.currentUser?.uid,
     });
 
     getMovieList();
@@ -46,6 +49,7 @@ function App() {
     console.error(err)
   }
   };
+
 
   const deleteMovie = async (id) => {
     const movieDoc = doc(db, "movies", id);
