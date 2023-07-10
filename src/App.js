@@ -2,13 +2,14 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Auth } from './components/auth';
 import { db } from './config/firebase';
-import { getDocs, collection, addDoc, deleteDoc, doc } from '@firebase/firestore';
+import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc } from '@firebase/firestore';
 
 function App() {
   const [movieList, setMovieList] = useState([]);
   const [newMovieTitle, setNewMovieTitle] = useState("");
   const [newReleaseDate, setNewReleaseDate] = useState(0);
   const [isNewMovieOscar, setIsNewMovieOscar] = useState(false);
+  const [updatedTitle, setupdatedTitle] = useState("");
 
 
 
@@ -26,7 +27,7 @@ function App() {
       console.error(err);
     }
 
-  }
+  };
 
   useEffect(()=>{
     getMovieList()
@@ -37,7 +38,7 @@ function App() {
     await addDoc(moviesCollectionRef, {
       title: newMovieTitle,
       releaseDate: newReleaseDate,
-      receivedAnOscar: isNewMovieOscar
+      receivedAnOscar: isNewMovieOscar,
     });
 
     getMovieList();
@@ -48,9 +49,13 @@ function App() {
 
   const deleteMovie = async (id) => {
     const movieDoc = doc(db, "movies", id);
-    await deleteDoc(movieDoc)
+    await deleteDoc(movieDoc);
   }
 
+  const updateMovieTitle = async (id) => {
+    const movieDoc = doc(db, "movies", id);
+    await updateDoc(movieDoc, {title: updatedTitle})
+  }
   return (
     <div className="App">
       <Auth />
@@ -68,6 +73,9 @@ function App() {
             <h1  style={{color: movie.receivedAnOscar ? "green" : "red"}}>{movie.title}</h1>
             <p>Date: {movie.releaseDate}</p>
             <button onClick={() => deleteMovie(movie.id)}>Delete Movie</button>
+
+            <input placeholder="new title..." onChange={(e) => setupdatedTitle(e.target.value)}/>
+            <button onClick={() => updateMovieTitle(movie.id)}> Update Title</button>
           </div>
         ))}
       </div>
