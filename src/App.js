@@ -6,12 +6,17 @@ import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc } from '@firebas
 
 function App() {
   const [movieList, setMovieList] = useState([]);
+
+  //New Movie States
   const [newMovieTitle, setNewMovieTitle] = useState("");
   const [newReleaseDate, setNewReleaseDate] = useState(0);
   const [isNewMovieOscar, setIsNewMovieOscar] = useState(false);
+  
+  //Update Title State
   const [updatedTitle, setupdatedTitle] = useState("");
 
-
+  //File Upload State
+  const [fileUpload,setFileUpload] = useState(null);
 
   const moviesCollectionRef = collection(db, "movies")
 
