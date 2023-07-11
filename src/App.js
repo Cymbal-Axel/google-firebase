@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Auth } from './components/auth';
-import { db, auth } from './config/firebase';
+import { db, auth, storage } from './config/firebase';
 import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc } from '@firebase/firestore';
 
 function App() {
@@ -83,6 +83,12 @@ function App() {
           </div>
         ))}
       </div>
+
+        <div>
+          <input type="file"/>
+          <button>Upload File</button>
+        </div>
+
     </div>
   );
 }
